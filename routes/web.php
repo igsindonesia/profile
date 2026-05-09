@@ -33,11 +33,11 @@ Route::prefix('{locale}')->whereIn('locale', ['id', 'en'])->middleware([SetLocal
     Route::get('/teaching-materials', [CategoryController::class, 'teachingMaterials'])->name('teaching-materials');
     Route::get('/trainings', [CategoryController::class, 'trainings'])->name('trainings');
 
-    Route::get('/category', function () {
+    Route::get('/category', function (string $locale) {
         return Inertia::render('category');
     })->name('category');
 
-    Route::get('/contact', function () {
+    Route::get('/contact', function (string $locale) {
         $personalInfo = PersonalInfo::first();
 
         return Inertia::render('contact', [

@@ -21,7 +21,7 @@ use Inertia\Inertia;
 
 class PageController extends Controller
 {
-    public function index()
+    public function index(string $locale)
     {
         $personalInfo = PersonalInfo::first();
 

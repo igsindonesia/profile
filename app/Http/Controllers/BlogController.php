@@ -10,7 +10,7 @@ use Inertia\Response;
 
 class BlogController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(string $locale, Request $request): Response
     {
         $personalInfo = PersonalInfo::first();
 
@@ -54,7 +54,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show(string $slug): Response
+    public function show(string $locale, string $slug): Response
     {
         $personalInfo = PersonalInfo::first();
 

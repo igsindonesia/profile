@@ -199,7 +199,7 @@ class CategoryController extends Controller
         };
     }
 
-    public function bookWritings(): Response
+    public function bookWritings(string $locale): Response
     {
         $query = BookWriting::query();
 
@@ -222,7 +222,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function communityServices(): Response
+    public function communityServices(string $locale): Response
     {
         $query = CommunityService::query();
 
@@ -245,7 +245,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function conferences(): Response
+    public function conferences(string $locale): Response
     {
         $query = Conference::query();
 
@@ -269,7 +269,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function education(): Response
+    public function education(string $locale): Response
     {
         $query = Education::query();
 
@@ -293,7 +293,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function institutionPositions(): Response
+    public function institutionPositions(string $locale): Response
     {
         $query = InstitutionPosition::query();
 
@@ -316,7 +316,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function intellectualProperties(): Response
+    public function intellectualProperties(string $locale): Response
     {
         $query = IntellectualProperty::query();
 
@@ -340,7 +340,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function organizations(): Response
+    public function organizations(string $locale): Response
     {
         $query = Organization::query();
 
@@ -363,7 +363,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function policyExperiences(): Response
+    public function policyExperiences(string $locale): Response
     {
         $query = PolicyExperience::query();
 
@@ -387,7 +387,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function publications(): Response
+    public function publications(string $locale): Response
     {
         $query = Publication::with('publicationCategory');
 
@@ -411,7 +411,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function research(): Response
+    public function research(string $locale): Response
     {
         $query = Research::query();
 
@@ -434,7 +434,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function teachingExperiences(): Response
+    public function teachingExperiences(string $locale): Response
     {
         $query = TeachingExperience::query();
 
@@ -457,7 +457,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function teachingMaterials(): Response
+    public function teachingMaterials(string $locale): Response
     {
         $query = TeachingMaterial::query();
 
@@ -481,7 +481,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function trainings(): Response
+    public function trainings(string $locale): Response
     {
         $query = Training::query();
 

@@ -8,7 +8,7 @@ use function Pest\Laravel\get;
 it('displays blog index page', function () {
     PersonalInfo::factory()->create();
 
-    $response = get('/blog');
+    $response = get('/en/blog');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -29,7 +29,7 @@ it('displays published blog posts on index page', function () {
         'status' => 'draft',
     ]);
 
-    $response = get('/blog');
+    $response = get('/en/blog');
 
     $response->assertInertia(fn ($page) => $page
         ->component('blog/index')
@@ -53,7 +53,7 @@ it('searches blog posts by title and content', function () {
         'published_at' => now(),
     ]);
 
-    $response = get('/blog?search=Laravel');
+    $response = get('/en/blog?search=Laravel');
 
     $response->assertInertia(fn ($page) => $page
         ->component('blog/index')
@@ -71,7 +71,7 @@ it('displays individual blog post', function () {
         'published_at' => now(),
     ]);
 
-    $response = get("/blog/{$post->slug}");
+    $response = get("/en/blog/{$post->slug}");
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -89,7 +89,7 @@ it('returns 404 for unpublished blog post', function () {
         'status' => 'draft',
     ]);
 
-    $response = get("/blog/{$post->slug}");
+    $response = get("/en/blog/{$post->slug}");
 
     $response->assertNotFound();
 });
@@ -102,7 +102,7 @@ it('shows latest blog posts on home page', function () {
         'published_at' => now(),
     ]);
 
-    $response = get('/');
+    $response = get('/en');
 
     $response->assertInertia(fn ($page) => $page
         ->component('index')
