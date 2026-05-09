@@ -1,3 +1,6 @@
+import BlogController from "@/actions/App/Http/Controllers/BlogController";
+import CategoryController from "@/actions/App/Http/Controllers/CategoryController";
+import PageController from "@/actions/App/Http/Controllers/PageController";
 import { BlogPostCard } from "@/components/blog/blog-post-card";
 import { CategoryCard } from "@/components/profile/category-card";
 import { CategoryNavMenu } from "@/components/profile/category-nav-menu";
@@ -122,7 +125,6 @@ export default function ProfileIndex({
     latest_blog_posts = [],
 }: Props) {
     const { locale, t } = useLanguage();
-    const localePath = (path: string) => `/${locale}${path}`;
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory] = useState<ModelCategory | null>(null);
     const [isContentView] = useState(false);
@@ -152,7 +154,7 @@ export default function ProfileIndex({
             description_id: t("Published books and written works"),
             icon: BookOpen,
             count: book_writings_count,
-            route: localePath("/book-writings"),
+            route: CategoryController.bookWritings.url({ locale }),
         },
         {
             name: "Community Services",
@@ -162,7 +164,7 @@ export default function ProfileIndex({
             description_id: t("Contributions and services to the community"),
             icon: Users,
             count: community_services_count,
-            route: localePath("/community-services"),
+            route: CategoryController.communityServices.url({ locale }),
         },
         {
             name: "Conferences",
@@ -176,7 +178,7 @@ export default function ProfileIndex({
             ),
             icon: Presentation,
             count: conferences_count,
-            route: localePath("/conferences"),
+            route: CategoryController.conferences.url({ locale }),
         },
         {
             name: "Education",
@@ -190,7 +192,7 @@ export default function ProfileIndex({
             ),
             icon: GraduationCap,
             count: educations_count,
-            route: localePath("/education"),
+            route: CategoryController.education.url({ locale }),
         },
         {
             name: "Institution Positions",
@@ -200,7 +202,7 @@ export default function ProfileIndex({
             description_id: t("Positions held within various institutions"),
             icon: Briefcase,
             count: institution_positions_count,
-            route: localePath("/institution-positions"),
+            route: CategoryController.institutionPositions.url({ locale }),
         },
         {
             name: "Intellectual Properties",
@@ -214,7 +216,7 @@ export default function ProfileIndex({
             ),
             icon: Lightbulb,
             count: intellectual_properties_count,
-            route: localePath("/intellectual-properties"),
+            route: CategoryController.intellectualProperties.url({ locale }),
         },
         {
             name: "Organizations",
@@ -228,7 +230,7 @@ export default function ProfileIndex({
             ),
             icon: Building,
             count: organizations_count,
-            route: localePath("/organizations"),
+            route: CategoryController.organizations.url({ locale }),
         },
         {
             name: "Policy Experiences",
@@ -238,7 +240,7 @@ export default function ProfileIndex({
             description_id: t("Experience in policy-making and advisory roles"),
             icon: FileText,
             count: policy_experiences_count,
-            route: localePath("/policy-experiences"),
+            route: CategoryController.policyExperiences.url({ locale }),
         },
         {
             name: "Publications",
@@ -248,7 +250,7 @@ export default function ProfileIndex({
             description_id: t("Academic publications and research papers"),
             icon: Newspaper,
             count: publications_count,
-            route: localePath("/publications"),
+            route: CategoryController.publications.url({ locale }),
         },
         {
             name: "Research",
@@ -258,7 +260,7 @@ export default function ProfileIndex({
             description_id: t("Research projects and funded studies"),
             icon: FlaskConical,
             count: researches_count,
-            route: localePath("/research"),
+            route: CategoryController.research.url({ locale }),
         },
         {
             name: "Teaching Experiences",
@@ -272,7 +274,7 @@ export default function ProfileIndex({
             ),
             icon: School,
             count: teaching_experiences_count,
-            route: localePath("/teaching-experiences"),
+            route: CategoryController.teachingExperiences.url({ locale }),
         },
         {
             name: "Teaching Materials",
@@ -286,7 +288,7 @@ export default function ProfileIndex({
             ),
             icon: FileEdit,
             count: teaching_materials_count,
-            route: localePath("/teaching-materials"),
+            route: CategoryController.teachingMaterials.url({ locale }),
         },
         {
             name: "Trainings",
@@ -300,7 +302,7 @@ export default function ProfileIndex({
             ),
             icon: Award,
             count: trainings_count,
-            route: localePath("/trainings"),
+            route: CategoryController.trainings.url({ locale }),
         },
     ];
 
@@ -367,7 +369,7 @@ export default function ProfileIndex({
         setIsMobileMenuOpen(false);
         setSearchTerm("");
         router.get(
-            localePath("/"),
+            PageController.index.url({ locale }),
             {},
             {
                 preserveScroll: false,
@@ -426,7 +428,11 @@ export default function ProfileIndex({
                                     size="lg"
                                     className="gap-2"
                                 >
-                                    <Link href={localePath("/blog")}>
+                                    <Link
+                                        href={BlogController.index.url({
+                                            locale,
+                                        })}
+                                    >
                                         {t("See More Blog Posts")}
                                         <ChevronRight className="h-5 w-5" />
                                     </Link>

@@ -1,3 +1,4 @@
+import BlogController from "@/actions/App/Http/Controllers/BlogController";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +44,6 @@ interface Props {
 
 export default function BlogShow({ post }: Props) {
     const { t, locale } = useLanguage();
-    const localePath = (path: string) => `/${locale}${path}`;
 
     const formatFileSize = (bytes: number): string => {
         if (bytes === 0) {
@@ -66,7 +66,7 @@ export default function BlogShow({ post }: Props) {
                 <div className="border-b-1 bg-muted/30">
                     <div className="mx-auto max-w-screen-lg px-4 py-4">
                         <Button variant="ghost" asChild className="gap-2">
-                            <Link href={localePath("/blog")}>
+                            <Link href={BlogController.index.url({ locale })}>
                                 <ArrowLeft className="h-4 w-4" />
                                 {t("Back to Blog")}
                             </Link>
@@ -203,7 +203,7 @@ export default function BlogShow({ post }: Props) {
                             size="lg"
                             className="gap-2"
                         >
-                            <Link href={localePath("/blog")}>
+                            <Link href={BlogController.index.url({ locale })}>
                                 <ArrowLeft className="h-4 w-4" />
                                 {t("Back to Blog")}
                             </Link>

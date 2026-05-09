@@ -40,7 +40,6 @@ interface Props {
 
 export default function FaqCategory({ category }: Props) {
     const { locale } = usePage<{ locale: string }>().props;
-    const localePath = (path: string) => `/${locale}${path}`;
     const [searchTerm, setSearchTerm] = useState("");
 
     const getLocalizedName = () => {
@@ -80,7 +79,7 @@ export default function FaqCategory({ category }: Props) {
                             <ol className="flex items-center space-x-3">
                                 <li>
                                     <Link
-                                        href={localePath("/category")}
+                                        href={category.url({ locale })}
                                         className="group text-muted-foreground transition-colors hover:text-primary"
                                     >
                                         <Home className="h-5 w-5 transition-colors group-hover:text-primary" />
@@ -95,7 +94,7 @@ export default function FaqCategory({ category }: Props) {
                                     <div className="flex items-center">
                                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                                         <Link
-                                            href={localePath("/category")}
+                                            href={category.url({ locale })}
                                             className="ml-3 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                                         >
                                             FAQ
@@ -238,7 +237,7 @@ export default function FaqCategory({ category }: Props) {
                                         : "Kategori ini belum memiliki pertanyaan dan jawaban. Coba lagi nanti!"}
                                 </p>
                                 <Link
-                                    href={localePath("/category")}
+                                    href={category.url({ locale })}
                                     className="inline-flex transform items-center rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90"
                                 >
                                     {locale === "en"

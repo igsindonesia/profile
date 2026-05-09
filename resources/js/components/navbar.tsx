@@ -1,12 +1,13 @@
+import BlogController from "@/actions/App/Http/Controllers/BlogController";
+import CategoryController from "@/actions/App/Http/Controllers/CategoryController";
+import PageController from "@/actions/App/Http/Controllers/PageController";
 import { LanguageToggle } from "@/components/language-toggle";
 import { Button } from "@/components/ui/button";
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {
@@ -17,6 +18,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { useLanguage } from "@/contexts/language-context";
+import { contact } from "@/routes";
 import { Link } from "@inertiajs/react";
 import {
     Award,
@@ -40,85 +42,83 @@ export function Navbar() {
     const { t, locale } = useLanguage();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const localePath = (path: string) => `/${locale}${path}`;
-
     const profileMenuItems = [
         {
-            href: localePath("/book-writings"),
+            href: CategoryController.bookWritings.url({ locale }),
             icon: BookOpen,
             title: "Book Writings",
             description: "Published books and written works",
         },
         {
-            href: localePath("/community-services"),
+            href: CategoryController.communityServices.url({ locale }),
             icon: Users,
             title: "Community Services",
             description: "Contributions and services to the community",
         },
         {
-            href: localePath("/conferences"),
+            href: CategoryController.conferences.url({ locale }),
             icon: Presentation,
             title: "Conferences",
             description: "Academic conferences and presentations attended",
         },
         {
-            href: localePath("/education"),
+            href: CategoryController.education.url({ locale }),
             icon: GraduationCap,
             title: "Education",
             description: "Educational background and academic qualifications",
         },
         {
-            href: localePath("/institution-positions"),
+            href: CategoryController.institutionPositions.url({ locale }),
             icon: Briefcase,
             title: "Institution Positions",
             description: "Positions held within various institutions",
         },
         {
-            href: localePath("/intellectual-properties"),
+            href: CategoryController.intellectualProperties.url({ locale }),
             icon: Lightbulb,
             title: "Intellectual Properties",
             description:
                 "Patents, copyrights, and other intellectual property rights",
         },
         {
-            href: localePath("/organizations"),
+            href: CategoryController.organizations.url({ locale }),
             icon: Building,
             title: "Organizations",
             description: "Professional and academic organizations memberships",
         },
         {
-            href: localePath("/policy-experiences"),
+            href: CategoryController.policyExperiences.url({ locale }),
             icon: FileText,
             title: "Policy Experiences",
             description: "Experience in policy-making and advisory roles",
         },
         {
-            href: localePath("/publications"),
+            href: CategoryController.publications.url({ locale }),
             icon: Newspaper,
             title: "Publications",
             description: "Academic publications and research papers",
         },
         {
-            href: localePath("/research"),
+            href: CategoryController.research.url({ locale }),
             icon: FlaskConical,
             title: "Research",
             description: "Research projects and funded studies",
         },
         {
-            href: localePath("/teaching-experiences"),
+            href: CategoryController.teachingExperiences.url({ locale }),
             icon: School,
             title: "Teaching Experiences",
             description:
                 "Teaching positions and academic instruction experience",
         },
         {
-            href: localePath("/teaching-materials"),
+            href: CategoryController.teachingMaterials.url({ locale }),
             icon: FileEdit,
             title: "Teaching Materials",
             description: "Educational materials and course content developed",
         },
         {
-            href: localePath("/trainings"),
+            href: CategoryController.trainings.url({ locale }),
             icon: Award,
             title: "Trainings",
             description:
@@ -132,7 +132,7 @@ export function Navbar() {
                 {/* Logo and App Title */}
                 <div className="mr-4 flex items-center space-x-2 md:mr-6">
                     <Link
-                        href={localePath("/")}
+                        href={PageController.index.url({ locale })}
                         className="flex items-center space-x-2"
                     >
                         <GraduationCap className="h-6 w-6 text-primary" />
@@ -155,7 +155,11 @@ export function Navbar() {
                                     className: "bg-transparent",
                                 })}
                             >
-                                <Link href={localePath("/")}>{t("Home")}</Link>
+                                <Link
+                                    href={PageController.index.url({ locale })}
+                                >
+                                    {t("Home")}
+                                </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
@@ -165,53 +169,21 @@ export function Navbar() {
                                     className: "bg-transparent",
                                 })}
                             >
-                                <Link href={localePath("/blog")}>
+                                <Link
+                                    href={BlogController.index.url({ locale })}
+                                >
                                     {t("Blog")}
                                 </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger className="bg-transparent">
-                                {t("Profile")}
-                            </NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                                <ul className="grid w-[400px] gap-3 bg-gradient-to-br from-card to-muted/30 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                                    {profileMenuItems.map((item) => {
-                                        const Icon = item.icon;
-                                        return (
-                                            <li key={item.href}>
-                                                <NavigationMenuLink asChild>
-                                                    <Link
-                                                        href={item.href}
-                                                        className="flex flex-col gap-1 rounded-lg border border-transparent bg-gradient-to-br from-card/50 to-muted/20 p-3 leading-none no-underline transition-all outline-none select-none hover:border-border hover:from-card hover:to-primary/10 focus:from-card focus:to-primary/10"
-                                                    >
-                                                        <div className="flex items-center gap-2">
-                                                            <Icon className="h-4 w-4 text-primary" />
-                                                            <div className="text-sm leading-none font-medium">
-                                                                {t(item.title)}
-                                                            </div>
-                                                        </div>
-                                                        <p className="text-xs leading-snug text-muted-foreground">
-                                                            {t(
-                                                                item.description,
-                                                            )}
-                                                        </p>
-                                                    </Link>
-                                                </NavigationMenuLink>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>
                             <NavigationMenuLink
                                 asChild
                                 className={navigationMenuTriggerStyle({
                                     className: "bg-transparent",
                                 })}
                             >
-                                <Link href={localePath("/contact")}>
+                                <Link href={contact.url({ locale })}>
                                     {t("Contact Us")}
                                 </Link>
                             </NavigationMenuLink>
@@ -249,7 +221,9 @@ export function Navbar() {
                                 <div className="mt-0 flex flex-col gap-4">
                                     {/* Home Link */}
                                     <Link
-                                        href={localePath("/")}
+                                        href={PageController.index.url({
+                                            locale,
+                                        })}
                                         className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
@@ -258,7 +232,9 @@ export function Navbar() {
 
                                     {/* Blog Link */}
                                     <Link
-                                        href={localePath("/blog")}
+                                        href={BlogController.index.url({
+                                            locale,
+                                        })}
                                         className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
@@ -296,7 +272,7 @@ export function Navbar() {
 
                                     {/* Contact Link */}
                                     <Link
-                                        href={localePath("/contact")}
+                                        href={contact.url({ locale })}
                                         className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >

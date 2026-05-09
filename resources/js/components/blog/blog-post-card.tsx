@@ -1,3 +1,4 @@
+import BlogController from "@/actions/App/Http/Controllers/BlogController";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -7,6 +8,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/language-context";
 import { Link } from "@inertiajs/react";
 import { Calendar, ChevronRight } from "lucide-react";
 
@@ -23,8 +25,9 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post, t }: BlogPostCardProps) {
+    const { locale } = useLanguage();
     return (
-        <Link href={`/blog/${post.slug}`}>
+        <Link href={BlogController.show.url({ locale, slug: post.slug })}>
             <Card className="group flex h-full transform cursor-pointer flex-col overflow-hidden border-border bg-card pt-0 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-lg">
                 {post.featured_image && (
                     <div className="relative aspect-video w-full overflow-hidden bg-muted">

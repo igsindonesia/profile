@@ -20,13 +20,15 @@ class BlogController extends Controller
         if ($request->has('search') && $request->search) {
             $search = strtolower($request->search);
             $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(CAST(title AS TEXT)) LIKE ?', ["%{$search}%"])
+                $q
+                    ->whereRaw('LOWER(CAST(title AS TEXT)) LIKE ?', ["%{$search}%"])
                     ->orWhereRaw('LOWER(CAST(excerpt AS TEXT)) LIKE ?', ["%{$search}%"])
                     ->orWhereRaw('LOWER(CAST(content AS TEXT)) LIKE ?', ["%{$search}%"]);
             });
         }
 
-        $posts = $query->orderBy('published_at', 'desc')
+        $posts = $query
+            ->orderBy('published_at', 'desc')
             ->get()
             ->map(function ($post) {
                 $featuredImage = $post->getFirstMedia('featured_image');
@@ -42,10 +44,11 @@ class BlogController extends Controller
             });
 
         return Inertia::render('blog/index', [
-            'personal_info' => $personalInfo ? [
-                'name' => $personalInfo->name,
-                'picture' => $personalInfo->picture,
-            ] : null,
+            'personal_info' => $personalInfo
+                ? [
+                    'name' => $personalInfo->name,
+                    'picture' => $personalInfo->picture,
+                ] : null,
             'posts' => $posts,
             'search' => $request->search ?? '',
         ]);
@@ -55,20 +58,18 @@ class BlogController extends Controller
     {
         $personalInfo = PersonalInfo::first();
 
-        $post = BlogPost::query()
-            ->published()
-            ->where('slug', $slug)
-            ->firstOrFail();
+        $post = BlogPost::query()->published()->where('slug', $slug)->firstOrFail();
 
         $featuredImage = $post->getFirstMedia('featured_image');
         $galleryMedia = $post->getMedia('gallery');
         $attachmentMedia = $post->getMedia('attachments');
 
         return Inertia::render('blog/show', [
-            'personal_info' => $personalInfo ? [
-                'name' => $personalInfo->name,
-                'picture' => $personalInfo->picture,
-            ] : null,
+            'personal_info' => $personalInfo
+                ? [
+                    'name' => $personalInfo->name,
+                    'picture' => $personalInfo->picture,
+                ] : null,
             'post' => [
                 'id' => $post->id,
                 'slug' => $post->slug,
