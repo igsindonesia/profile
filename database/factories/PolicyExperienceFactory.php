@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\PolicyExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PolicyExperience>
+ * @extends Factory<PolicyExperience>
  */
 class PolicyExperienceFactory extends Factory
 {

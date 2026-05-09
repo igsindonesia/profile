@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { ChevronRight, HelpCircle, Home, Search } from "lucide-react";
 import { useState } from "react";
 
@@ -39,8 +39,9 @@ interface Props {
 }
 
 export default function FaqCategory({ category }: Props) {
+    const { locale } = usePage<{ locale: string }>().props;
+    const localePath = (path: string) => `/${locale}${path}`;
     const [searchTerm, setSearchTerm] = useState("");
-    const locale = "en"; // You can get this from your Laravel app
 
     const getLocalizedName = () => {
         return locale === "en" ? category.name_en : category.name_id;
@@ -79,7 +80,7 @@ export default function FaqCategory({ category }: Props) {
                             <ol className="flex items-center space-x-3">
                                 <li>
                                     <Link
-                                        href="/faq"
+                                        href={localePath("/category")}
                                         className="group text-muted-foreground transition-colors hover:text-primary"
                                     >
                                         <Home className="h-5 w-5 transition-colors group-hover:text-primary" />
@@ -94,7 +95,7 @@ export default function FaqCategory({ category }: Props) {
                                     <div className="flex items-center">
                                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                                         <Link
-                                            href="/faq"
+                                            href={localePath("/category")}
                                             className="ml-3 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                                         >
                                             FAQ
@@ -237,7 +238,7 @@ export default function FaqCategory({ category }: Props) {
                                         : "Kategori ini belum memiliki pertanyaan dan jawaban. Coba lagi nanti!"}
                                 </p>
                                 <Link
-                                    href="/faq"
+                                    href={localePath("/category")}
                                     className="inline-flex transform items-center rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90"
                                 >
                                     {locale === "en"

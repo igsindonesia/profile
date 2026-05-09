@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\InstitutionPositionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +10,7 @@ use Spatie\Translatable\HasTranslations;
 
 class InstitutionPosition extends Model
 {
-    /** @use HasFactory<\Database\Factories\InstitutionPositionFactory> */
+    /** @use HasFactory<InstitutionPositionFactory> */
     use HasFactory;
 
     use HasTranslations;

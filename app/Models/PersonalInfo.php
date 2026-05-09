@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\PersonalInfoFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PersonalInfo extends Model
 {
-    /** @use HasFactory<\Database\Factories\PersonalInfoFactory> */
+    /** @use HasFactory<PersonalInfoFactory> */
     use HasFactory;
 
     protected $fillable = [

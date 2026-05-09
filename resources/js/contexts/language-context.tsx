@@ -44,8 +44,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }, [serverLocale, locale]);
 
     const setLocale = (newLocale: Locale) => {
-        // Immediately redirect to Laravel to update session
-        window.location.href = `/language/${newLocale}?redirect=${encodeURIComponent(window.location.pathname)}`;
+        // Rewrite the URL locale prefix in-place
+        const currentPath = window.location.pathname;
+        const pathWithoutLocale = currentPath.replace(/^\/(en|id)(\/|$)/, "/");
+        window.location.href = `/${newLocale}${pathWithoutLocale}`;
     };
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\ResearchFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +10,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Research extends Model
 {
-    /** @use HasFactory<\Database\Factories\ResearchFactory> */
+    /** @use HasFactory<ResearchFactory> */
     use HasFactory;
 
     use HasTranslations;

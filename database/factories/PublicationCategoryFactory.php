@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\PublicationCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PublicationCategory>
+ * @extends Factory<PublicationCategory>
  */
 class PublicationCategoryFactory extends Factory
 {

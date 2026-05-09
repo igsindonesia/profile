@@ -7,6 +7,7 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Illuminate\Database\Eloquent\Model;
 use SolutionForest\FilamentTree\Actions;
 use SolutionForest\FilamentTree\Resources\Pages\TreePage;
 
@@ -64,7 +65,7 @@ class PublicationCategoryTree extends TreePage
         return false;
     }
 
-    public function getTreeRecordIcon(?\Illuminate\Database\Eloquent\Model $record = null): ?string
+    public function getTreeRecordIcon(?Model $record = null): ?string
     {
         if (! $record) {
             return null;
@@ -79,7 +80,7 @@ class PublicationCategoryTree extends TreePage
         return 'heroicon-o-tag';
     }
 
-    public function getTreeRecordTitle(?\Illuminate\Database\Eloquent\Model $record = null): string
+    public function getTreeRecordTitle(?Model $record = null): string
     {
         if (! $record) {
             return '';

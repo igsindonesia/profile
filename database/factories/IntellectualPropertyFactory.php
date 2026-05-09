@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\IntellectualProperty;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\IntellectualProperty>
+ * @extends Factory<IntellectualProperty>
  */
 class IntellectualPropertyFactory extends Factory
 {

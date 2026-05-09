@@ -36,99 +36,105 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-// Navigation menu items configuration
-const profileMenuItems = [
-    {
-        href: "/book-writings",
-        icon: BookOpen,
-        title: "Book Writings",
-        description: "Published books and written works",
-    },
-    {
-        href: "/community-services",
-        icon: Users,
-        title: "Community Services",
-        description: "Contributions and services to the community",
-    },
-    {
-        href: "/conferences",
-        icon: Presentation,
-        title: "Conferences",
-        description: "Academic conferences and presentations attended",
-    },
-    {
-        href: "/education",
-        icon: GraduationCap,
-        title: "Education",
-        description: "Educational background and academic qualifications",
-    },
-    {
-        href: "/institution-positions",
-        icon: Briefcase,
-        title: "Institution Positions",
-        description: "Positions held within various institutions",
-    },
-    {
-        href: "/intellectual-properties",
-        icon: Lightbulb,
-        title: "Intellectual Properties",
-        description:
-            "Patents, copyrights, and other intellectual property rights",
-    },
-    {
-        href: "/organizations",
-        icon: Building,
-        title: "Organizations",
-        description: "Professional and academic organizations memberships",
-    },
-    {
-        href: "/policy-experiences",
-        icon: FileText,
-        title: "Policy Experiences",
-        description: "Experience in policy-making and advisory roles",
-    },
-    {
-        href: "/publications",
-        icon: Newspaper,
-        title: "Publications",
-        description: "Academic publications and research papers",
-    },
-    {
-        href: "/research",
-        icon: FlaskConical,
-        title: "Research",
-        description: "Research projects and funded studies",
-    },
-    {
-        href: "/teaching-experiences",
-        icon: School,
-        title: "Teaching Experiences",
-        description: "Teaching positions and academic instruction experience",
-    },
-    {
-        href: "/teaching-materials",
-        icon: FileEdit,
-        title: "Teaching Materials",
-        description: "Educational materials and course content developed",
-    },
-    {
-        href: "/trainings",
-        icon: Award,
-        title: "Trainings",
-        description: "Professional development and training programs attended",
-    },
-];
-
 export function Navbar() {
-    const { t } = useLanguage();
+    const { t, locale } = useLanguage();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const localePath = (path: string) => `/${locale}${path}`;
+
+    const profileMenuItems = [
+        {
+            href: localePath("/book-writings"),
+            icon: BookOpen,
+            title: "Book Writings",
+            description: "Published books and written works",
+        },
+        {
+            href: localePath("/community-services"),
+            icon: Users,
+            title: "Community Services",
+            description: "Contributions and services to the community",
+        },
+        {
+            href: localePath("/conferences"),
+            icon: Presentation,
+            title: "Conferences",
+            description: "Academic conferences and presentations attended",
+        },
+        {
+            href: localePath("/education"),
+            icon: GraduationCap,
+            title: "Education",
+            description: "Educational background and academic qualifications",
+        },
+        {
+            href: localePath("/institution-positions"),
+            icon: Briefcase,
+            title: "Institution Positions",
+            description: "Positions held within various institutions",
+        },
+        {
+            href: localePath("/intellectual-properties"),
+            icon: Lightbulb,
+            title: "Intellectual Properties",
+            description:
+                "Patents, copyrights, and other intellectual property rights",
+        },
+        {
+            href: localePath("/organizations"),
+            icon: Building,
+            title: "Organizations",
+            description: "Professional and academic organizations memberships",
+        },
+        {
+            href: localePath("/policy-experiences"),
+            icon: FileText,
+            title: "Policy Experiences",
+            description: "Experience in policy-making and advisory roles",
+        },
+        {
+            href: localePath("/publications"),
+            icon: Newspaper,
+            title: "Publications",
+            description: "Academic publications and research papers",
+        },
+        {
+            href: localePath("/research"),
+            icon: FlaskConical,
+            title: "Research",
+            description: "Research projects and funded studies",
+        },
+        {
+            href: localePath("/teaching-experiences"),
+            icon: School,
+            title: "Teaching Experiences",
+            description:
+                "Teaching positions and academic instruction experience",
+        },
+        {
+            href: localePath("/teaching-materials"),
+            icon: FileEdit,
+            title: "Teaching Materials",
+            description: "Educational materials and course content developed",
+        },
+        {
+            href: localePath("/trainings"),
+            icon: Award,
+            title: "Trainings",
+            description:
+                "Professional development and training programs attended",
+        },
+    ];
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="mx-auto flex h-16 max-w-screen-lg items-center px-4 md:px-6">
                 {/* Logo and App Title */}
                 <div className="mr-4 flex items-center space-x-2 md:mr-6">
-                    <Link href="/" className="flex items-center space-x-2">
+                    <Link
+                        href={localePath("/")}
+                        className="flex items-center space-x-2"
+                    >
                         <GraduationCap className="h-6 w-6 text-primary" />
                         <span className="hidden font-bold sm:inline-block">
                             IGS Indonesia
@@ -149,7 +155,7 @@ export function Navbar() {
                                     className: "bg-transparent",
                                 })}
                             >
-                                <Link href="/">{t("Home")}</Link>
+                                <Link href={localePath("/")}>{t("Home")}</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
@@ -159,7 +165,9 @@ export function Navbar() {
                                     className: "bg-transparent",
                                 })}
                             >
-                                <Link href="/blog">{t("Blog")}</Link>
+                                <Link href={localePath("/blog")}>
+                                    {t("Blog")}
+                                </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
@@ -203,7 +211,9 @@ export function Navbar() {
                                     className: "bg-transparent",
                                 })}
                             >
-                                <Link href="/contact">{t("Contact Us")}</Link>
+                                <Link href={localePath("/contact")}>
+                                    {t("Contact Us")}
+                                </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                     </NavigationMenuList>
@@ -239,7 +249,7 @@ export function Navbar() {
                                 <div className="mt-0 flex flex-col gap-4">
                                     {/* Home Link */}
                                     <Link
-                                        href="/"
+                                        href={localePath("/")}
                                         className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
@@ -248,7 +258,7 @@ export function Navbar() {
 
                                     {/* Blog Link */}
                                     <Link
-                                        href="/blog"
+                                        href={localePath("/blog")}
                                         className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
@@ -286,7 +296,7 @@ export function Navbar() {
 
                                     {/* Contact Link */}
                                     <Link
-                                        href="/contact"
+                                        href={localePath("/contact")}
                                         className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >

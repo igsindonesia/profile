@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\BlogPost;
+use App\Models\PersonalInfo;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BlogPost>
+ * @extends Factory<BlogPost>
  */
 class BlogPostFactory extends Factory
 {
@@ -19,12 +22,12 @@ class BlogPostFactory extends Factory
         $title = fake()->sentence();
 
         return [
-            'personal_info_id' => \App\Models\PersonalInfo::factory(),
+            'personal_info_id' => PersonalInfo::factory(),
             'title' => [
                 'en' => $title,
                 'id' => fake('id_ID')->sentence(),
             ],
-            'slug' => \Illuminate\Support\Str::slug($title),
+            'slug' => Str::slug($title),
             'excerpt' => [
                 'en' => fake()->paragraph(),
                 'id' => fake('id_ID')->paragraph(),

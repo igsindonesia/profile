@@ -122,6 +122,7 @@ export default function ProfileIndex({
     latest_blog_posts = [],
 }: Props) {
     const { locale, t } = useLanguage();
+    const localePath = (path: string) => `/${locale}${path}`;
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory] = useState<ModelCategory | null>(null);
     const [isContentView] = useState(false);
@@ -151,7 +152,7 @@ export default function ProfileIndex({
             description_id: t("Published books and written works"),
             icon: BookOpen,
             count: book_writings_count,
-            route: "/book-writings",
+            route: localePath("/book-writings"),
         },
         {
             name: "Community Services",
@@ -161,7 +162,7 @@ export default function ProfileIndex({
             description_id: t("Contributions and services to the community"),
             icon: Users,
             count: community_services_count,
-            route: "/community-services",
+            route: localePath("/community-services"),
         },
         {
             name: "Conferences",
@@ -175,7 +176,7 @@ export default function ProfileIndex({
             ),
             icon: Presentation,
             count: conferences_count,
-            route: "/conferences",
+            route: localePath("/conferences"),
         },
         {
             name: "Education",
@@ -189,7 +190,7 @@ export default function ProfileIndex({
             ),
             icon: GraduationCap,
             count: educations_count,
-            route: "/education",
+            route: localePath("/education"),
         },
         {
             name: "Institution Positions",
@@ -199,7 +200,7 @@ export default function ProfileIndex({
             description_id: t("Positions held within various institutions"),
             icon: Briefcase,
             count: institution_positions_count,
-            route: "/institution-positions",
+            route: localePath("/institution-positions"),
         },
         {
             name: "Intellectual Properties",
@@ -213,7 +214,7 @@ export default function ProfileIndex({
             ),
             icon: Lightbulb,
             count: intellectual_properties_count,
-            route: "/intellectual-properties",
+            route: localePath("/intellectual-properties"),
         },
         {
             name: "Organizations",
@@ -227,7 +228,7 @@ export default function ProfileIndex({
             ),
             icon: Building,
             count: organizations_count,
-            route: "/organizations",
+            route: localePath("/organizations"),
         },
         {
             name: "Policy Experiences",
@@ -237,7 +238,7 @@ export default function ProfileIndex({
             description_id: t("Experience in policy-making and advisory roles"),
             icon: FileText,
             count: policy_experiences_count,
-            route: "/policy-experiences",
+            route: localePath("/policy-experiences"),
         },
         {
             name: "Publications",
@@ -247,7 +248,7 @@ export default function ProfileIndex({
             description_id: t("Academic publications and research papers"),
             icon: Newspaper,
             count: publications_count,
-            route: "/publications",
+            route: localePath("/publications"),
         },
         {
             name: "Research",
@@ -257,7 +258,7 @@ export default function ProfileIndex({
             description_id: t("Research projects and funded studies"),
             icon: FlaskConical,
             count: researches_count,
-            route: "/research",
+            route: localePath("/research"),
         },
         {
             name: "Teaching Experiences",
@@ -271,7 +272,7 @@ export default function ProfileIndex({
             ),
             icon: School,
             count: teaching_experiences_count,
-            route: "/teaching-experiences",
+            route: localePath("/teaching-experiences"),
         },
         {
             name: "Teaching Materials",
@@ -285,7 +286,7 @@ export default function ProfileIndex({
             ),
             icon: FileEdit,
             count: teaching_materials_count,
-            route: "/teaching-materials",
+            route: localePath("/teaching-materials"),
         },
         {
             name: "Trainings",
@@ -299,7 +300,7 @@ export default function ProfileIndex({
             ),
             icon: Award,
             count: trainings_count,
-            route: "/trainings",
+            route: localePath("/trainings"),
         },
     ];
 
@@ -366,7 +367,7 @@ export default function ProfileIndex({
         setIsMobileMenuOpen(false);
         setSearchTerm("");
         router.get(
-            "/",
+            localePath("/"),
             {},
             {
                 preserveScroll: false,
@@ -425,7 +426,7 @@ export default function ProfileIndex({
                                     size="lg"
                                     className="gap-2"
                                 >
-                                    <Link href="/blog">
+                                    <Link href={localePath("/blog")}>
                                         {t("See More Blog Posts")}
                                         <ChevronRight className="h-5 w-5" />
                                     </Link>

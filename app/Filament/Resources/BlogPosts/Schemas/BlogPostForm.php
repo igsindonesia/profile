@@ -9,6 +9,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 use Pixelpeter\FilamentLanguageTabs\Forms\Components\LanguageTabs;
 
 class BlogPostForm
@@ -27,7 +28,7 @@ class BlogPostForm
                         ->live(onBlur: true)
                         ->afterStateUpdated(function ($state, callable $set, $get) {
                             if (! $get('slug')) {
-                                $set('slug', \Illuminate\Support\Str::slug($state));
+                                $set('slug', Str::slug($state));
                             }
                         })
                         ->columnSpanFull(),

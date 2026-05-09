@@ -3,7 +3,8 @@ import { Link } from "@inertiajs/react";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 export function Footer() {
-    const { t } = useLanguage();
+    const { t, locale } = useLanguage();
+    const localePath = (path: string) => `/${locale}${path}`;
 
     return (
         <footer className="w-full border-t border-border/40 bg-muted/30">
@@ -28,13 +29,13 @@ export function Footer() {
                         </h3>
                         <nav className="flex flex-col space-y-2">
                             <Link
-                                href="/"
+                                href={localePath("/")}
                                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
                             >
                                 {t("Home")}
                             </Link>
                             <Link
-                                href="/contact"
+                                href={localePath("/contact")}
                                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
                             >
                                 {t("Contact Us")}

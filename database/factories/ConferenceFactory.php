@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Conference;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Conference>
+ * @extends Factory<Conference>
  */
 class ConferenceFactory extends Factory
 {
