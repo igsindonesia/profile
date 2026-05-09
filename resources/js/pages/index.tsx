@@ -55,6 +55,8 @@ interface ModelCategory {
 interface PersonalInfo {
     name: string;
     picture: string | null;
+    cv_en: string | null;
+    cv_id: string | null;
     short_description: {
         en: string;
         id: string;

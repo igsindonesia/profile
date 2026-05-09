@@ -29,6 +29,20 @@ class PersonalInfoForm
                             ->visibility('public')
                             ->maxSize(2048)
                             ->columnSpanFull(),
+                        FileUpload::make('cv_en')
+                            ->label('Curriculum Vitae (English)')
+                            ->disk('public')
+                            ->directory('personal-info/cv')
+                            ->acceptedFileTypes(['application/pdf'])
+                            ->maxSize(5120)
+                            ->columnSpanFull(),
+                        FileUpload::make('cv_id')
+                            ->label('Curriculum Vitae (Indonesian)')
+                            ->disk('public')
+                            ->directory('personal-info/cv')
+                            ->acceptedFileTypes(['application/pdf'])
+                            ->maxSize(5120)
+                            ->columnSpanFull(),
                         LanguageTabs::make([
                             Textarea::make('short_description')
                                 ->label('Short Description')

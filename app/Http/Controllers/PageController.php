@@ -48,6 +48,8 @@ class PageController extends Controller
             'personal_info' => $personalInfo ? [
                 'name' => $personalInfo->name,
                 'picture' => $personalInfo->picture,
+                'cv_en' => $personalInfo->cv_en,
+                'cv_id' => $personalInfo->cv_id,
                 'short_description' => $personalInfo->short_description,
                 'institution' => $personalInfo->institution,
                 'academic_position' => $personalInfo->academic_position,

@@ -15,6 +15,8 @@ class PersonalInfo extends Model
     protected $fillable = [
         'name',
         'picture',
+        'cv_en',
+        'cv_id',
         'short_description',
         'academic_titles',
         'nidn',

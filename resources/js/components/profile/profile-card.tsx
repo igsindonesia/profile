@@ -6,9 +6,14 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 
+import { Button } from "@/components/ui/button";
+import { FileDown } from "lucide-react";
+
 interface PersonalInfo {
     name: string;
     picture: string | null;
+    cv_en: string | null;
+    cv_id: string | null;
     short_description: {
         en: string;
         id: string;
@@ -104,6 +109,41 @@ export function ProfileCard({ personalInfo, locale }: ProfileCardProps) {
                                         className="h-12 w-auto object-contain"
                                     />
                                 </a>
+                            )}
+                        </div>
+
+                        <div className="flex flex-wrap justify-center gap-4 pt-2">
+                            {personalInfo.cv_en && (
+                                <Button
+                                    asChild
+                                    variant="outline"
+                                    className="gap-2"
+                                >
+                                    <a
+                                        href={`/storage/${personalInfo.cv_en}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <FileDown className="h-4 w-4" />
+                                        CV (English)
+                                    </a>
+                                </Button>
+                            )}
+                            {personalInfo.cv_id && (
+                                <Button
+                                    asChild
+                                    variant="outline"
+                                    className="gap-2"
+                                >
+                                    <a
+                                        href={`/storage/${personalInfo.cv_id}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <FileDown className="h-4 w-4" />
+                                        CV (Indonesian)
+                                    </a>
+                                </Button>
                             )}
                         </div>
                     </CardContent>
