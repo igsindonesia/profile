@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Meta;
 use App\Models\BlogPost;
 use App\Models\BookWriting;
 use App\Models\CommunityService;
@@ -40,9 +41,18 @@ class PageController extends Controller
                     'title' => $post->title,
                     'excerpt' => $post->excerpt,
                     'published_at' => $post->published_at?->format('F d, Y'),
-                    'featured_image' => $featuredImage ? $featuredImage->getTemporaryUrl(now()->addHours(2)) : null,
+                    'featured_image' => $featuredImage ? $featuredImage->getUrl() : null,
                 ];
             });
+
+        $description = $personalInfo
+            ? strip_tags($personalInfo->short_description[$locale] ?? '')
+            : null;
+
+        Meta::title($personalInfo->name ?? config('app.name'))
+            ->description($description)
+            ->type('website')
+            ->card('summary');
 
         return Inertia::render('index', [
             'personal_info' => $personalInfo ? [

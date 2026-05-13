@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ $seo['title'] ?? config('app.name', 'Laravel') }}</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -17,6 +17,15 @@
 
     @viteReactRefresh
     @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+
+    @if(!empty($seo))
+        @foreach($seo as $name => $content)
+            @php
+                $attr = str_starts_with($name, 'og:') ? 'property' : 'name';
+            @endphp
+            <meta {{ $attr }}="{{ $name }}" content="{{ e($content) }}">
+        @endforeach
+    @endif
     @inertiaHead
 </head>
 

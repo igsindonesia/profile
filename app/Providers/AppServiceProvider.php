@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\SEOMeta;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -12,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(SEOMeta::class);
     }
 
     /**
@@ -23,5 +25,14 @@ class AppServiceProvider extends ServiceProvider
         if (app()->isProduction()) {
             URL::forceScheme('https');
         }
+
+        View::composer('app', function ($view) {
+            $seoMeta = app(SEOMeta::class);
+            $tags = $seoMeta->getTags();
+
+            if (! empty($tags)) {
+                $view->with('seo', $tags);
+            }
+        });
     }
 }

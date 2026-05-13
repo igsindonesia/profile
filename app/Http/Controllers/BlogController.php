@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Meta;
 use App\Models\BlogPost;
 use App\Models\PersonalInfo;
 use Illuminate\Http\Request;
@@ -39,9 +40,14 @@ class BlogController extends Controller
                     'title' => $post->title,
                     'excerpt' => $post->excerpt,
                     'published_at' => $post->published_at?->format('F d, Y'),
-                    'featured_image' => $featuredImage ? $featuredImage->getTemporaryUrl(now()->addHours(2)) : null,
+                    'featured_image' => $featuredImage ? $featuredImage->getUrl() : null,
                 ];
             });
+
+        Meta::title(__('Blog'))
+            ->description(__('Read our latest articles and insights'))
+            ->type('website')
+            ->card('summary');
 
         return Inertia::render('blog/index', [
             'personal_info' => $personalInfo
@@ -64,6 +70,14 @@ class BlogController extends Controller
         $galleryMedia = $post->getMedia('gallery');
         $attachmentMedia = $post->getMedia('attachments');
 
+        Meta::title($post->title)
+            ->description($post->meta_description ?? $post->excerpt)
+            ->image($featuredImage?->getUrl())
+            ->url(request()->url())
+            ->type('article')
+            ->card()
+            ->set('article:published_time', $post->published_at?->toIso8601String());
+
         return Inertia::render('blog/show', [
             'personal_info' => $personalInfo
                 ? [
@@ -77,11 +91,11 @@ class BlogController extends Controller
                 'excerpt' => $post->excerpt,
                 'content' => $post->content,
                 'published_at' => $post->published_at?->format('F d, Y'),
-                'featured_image' => $featuredImage ? $featuredImage->getTemporaryUrl(now()->addHours(2)) : null,
-                'gallery' => $galleryMedia->map(fn ($media) => $media->getTemporaryUrl(now()->addHours(2))),
+                'featured_image' => $featuredImage ? $featuredImage->getUrl() : null,
+                'gallery' => $galleryMedia->map(fn ($media) => $media->getUrl()),
                 'attachments' => $attachmentMedia->map(fn ($media) => [
                     'name' => $media->name,
-                    'url' => $media->getTemporaryUrl(now()->addHours(2)),
+                    'url' => $media->getUrl(),
                     'size' => $media->size,
                     'mime_type' => $media->mime_type,
                 ]),
