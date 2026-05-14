@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 return new class extends Migration
@@ -11,14 +11,25 @@ return new class extends Migration
         $mediaItems = Media::where('disk', 'local')->get();
 
         foreach ($mediaItems as $media) {
-            $privatePath = storage_path("app/private/{$media->id}");
-            $publicPath = storage_path("app/public/{$media->id}");
+            $privateDisk = Storage::disk('local');
+            $publicDisk = Storage::disk('public');
 
-            if (File::isDirectory($privatePath)) {
-                File::copyDirectory($privatePath, $publicPath);
-                File::deleteDirectory($privatePath);
+            $privateDir = "{$media->id}";
+
+            if (! $privateDisk->exists($privateDir)) {
+                $media->update(['disk' => 'public']);
+
+                continue;
             }
 
+            $files = $privateDisk->allFiles($privateDir);
+
+            foreach ($files as $file) {
+                $publicDisk->put($file, $privateDisk->get($file));
+                $privateDisk->delete($file);
+            }
+
+            $privateDisk->deleteDirectory($privateDir);
             $media->update(['disk' => 'public']);
         }
     }
@@ -28,14 +39,23 @@ return new class extends Migration
         $mediaItems = Media::where('disk', 'public')->get();
 
         foreach ($mediaItems as $media) {
-            $publicPath = storage_path("app/public/{$media->id}");
-            $privatePath = storage_path("app/private/{$media->id}");
+            $publicDisk = Storage::disk('public');
+            $privateDisk = Storage::disk('local');
 
-            if (File::isDirectory($publicPath)) {
-                File::copyDirectory($publicPath, $privatePath);
-                File::deleteDirectory($publicPath);
+            $publicDir = "{$media->id}";
+
+            if (! $publicDisk->exists($publicDir)) {
+                continue;
             }
 
+            $files = $publicDisk->allFiles($publicDir);
+
+            foreach ($files as $file) {
+                $privateDisk->put($file, $publicDisk->get($file));
+                $publicDisk->delete($file);
+            }
+
+            $publicDisk->deleteDirectory($publicDir);
             $media->update(['disk' => 'local']);
         }
     }
