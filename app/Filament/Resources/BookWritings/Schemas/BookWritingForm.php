@@ -28,11 +28,22 @@ class BookWritingForm
                         ->required(),
                 ]),
                 TextInput::make('isbn'),
-                TextInput::make('type')
+                Select::make('type')
+                    ->options([
+                        'Textbook' => 'Textbook',
+                        'ReferenceBook' => 'Reference Book',
+                        'Monograph' => 'Monograph',
+                        'Chapter' => 'Chapter',
+                    ])
                     ->required(),
                 TextInput::make('authors')
                     ->required(),
-                TextInput::make('role')
+                Select::make('role')
+                    ->options([
+                        'Author' => 'Author',
+                        'CoAuthor' => 'Co-Author',
+                        'Editor' => 'Editor',
+                    ])
                     ->required(),
                 TextInput::make('url')
                     ->url(),

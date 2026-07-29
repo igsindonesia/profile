@@ -27,7 +27,11 @@ class TrainingForm
                     TextInput::make('organizer')
                         ->required(),
                 ]),
-                TextInput::make('type')
+                Select::make('type')
+                    ->options([
+                        'Domestic' => 'Domestic',
+                        'International' => 'International',
+                    ])
                     ->required(),
                 TextInput::make('duration_hours')
                     ->required()

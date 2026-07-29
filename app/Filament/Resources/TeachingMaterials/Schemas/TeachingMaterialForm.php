@@ -26,7 +26,11 @@ class TeachingMaterialForm
                     TextInput::make('type')
                         ->required(),
                 ]),
-                TextInput::make('format')
+                Select::make('format')
+                    ->options([
+                        'Printed' => 'Printed',
+                        'Digital' => 'Digital',
+                    ])
                     ->required(),
                 TextInput::make('isbn'),
                 TextInput::make('year')

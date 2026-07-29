@@ -29,7 +29,13 @@ class ConferenceForm
                     TextInput::make('location'),
                     TextInput::make('paper_title'),
                 ]),
-                TextInput::make('role')
+                Select::make('role')
+                    ->options([
+                        'Presenter' => 'Presenter',
+                        'Participant' => 'Participant',
+                        'Committee' => 'Committee',
+                        'KeynoteSpeaker' => 'Keynote Speaker',
+                    ])
                     ->required(),
                 TextInput::make('url')
                     ->url(),

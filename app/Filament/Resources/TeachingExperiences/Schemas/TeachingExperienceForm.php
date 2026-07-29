@@ -22,7 +22,13 @@ class TeachingExperienceForm
                     TextInput::make('program')
                         ->required(),
                 ]),
-                TextInput::make('level')
+                Select::make('level')
+                    ->options([
+                        'Diploma' => 'Diploma',
+                        'Bachelor' => 'Bachelor',
+                        'Master' => 'Master',
+                        'Doctorate' => 'Doctorate',
+                    ])
                     ->required(),
                 TextInput::make('institution')
                     ->required(),

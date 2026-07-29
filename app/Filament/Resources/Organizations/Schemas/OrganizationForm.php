@@ -22,7 +22,12 @@ class OrganizationForm
                     TextInput::make('role')
                         ->required(),
                 ]),
-                TextInput::make('membership_type')
+                Select::make('membership_type')
+                    ->options([
+                        'Professional' => 'Professional',
+                        'Scientific' => 'Scientific',
+                        'Other' => 'Other',
+                    ])
                     ->required(),
                 TextInput::make('start_year')
                     ->numeric(),

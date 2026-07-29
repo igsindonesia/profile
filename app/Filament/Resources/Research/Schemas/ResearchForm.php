@@ -29,7 +29,11 @@ class ResearchForm
                     TextInput::make('scheme')
                         ->required(),
                 ]),
-                TextInput::make('role')
+                Select::make('role')
+                    ->options([
+                        'Leader' => 'Leader',
+                        'Member' => 'Member',
+                    ])
                     ->required(),
                 TextInput::make('fund_amount')
                     ->required()

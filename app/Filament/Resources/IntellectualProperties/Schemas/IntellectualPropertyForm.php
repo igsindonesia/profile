@@ -22,13 +22,26 @@ class IntellectualPropertyForm
                         ->required()
                         ->columnSpanFull(),
                 ]),
-                TextInput::make('type')
+                Select::make('type')
+                    ->options([
+                        'Patent' => 'Patent',
+                        'Copyright' => 'Copyright',
+                        'Trademark' => 'Trademark',
+                        'Design' => 'Design',
+                        'Software' => 'Software',
+                    ])
                     ->required(),
                 TextInput::make('registration_number'),
                 TextInput::make('year')
                     ->required()
                     ->numeric(),
-                TextInput::make('status')
+                Select::make('status')
+                    ->options([
+                        'Registered' => 'Registered',
+                        'Pending' => 'Pending',
+                        'Granted' => 'Granted',
+                        'Published' => 'Published',
+                    ])
                     ->required(),
                 TextInput::make('url')
                     ->url(),
